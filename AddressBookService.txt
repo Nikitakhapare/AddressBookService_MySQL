@@ -1,0 +1,286 @@
+
+***UC1***
+
+mysql> show databases;
++----------------------+
+| Database             |
++----------------------+
+| address_book_service |
+| addressbook          |
+| information_schema   |
+| mysql                |
+| payroll_service      |
+| performance_schema   |
+| sys                  |
++----------------------+
+7 rows in set (0.00 sec)
+
+mysql> use address_book_service;
+Database changed
+mysql> select database();
++----------------------+
+| database()           |
++----------------------+
+| address_book_service |
++----------------------+
+1 row in set (0.00 sec)
+
+           ***UC2***
+ create table AddressBook(
+    -> id int unsigned Not Null Auto_Increment,
+    -> first_name varchar(20) Not Null,
+    -> last_name varchar(20) Not Null,
+    -> Address varchar(100),
+    -> city varchar(30) Not Null,
+    -> state varchar(30) Not Null,
+    -> zip_code int(6) Not Null,
+    -> phone_no int(10) Not Null,
+    -> Email nvarchar(320) ,
+    -> Primary Key (id)
+    -> );
+Query OK, 0 rows affected, 3 warnings (0.04 sec)
+
+mysql> describe AddressBook;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int unsigned | NO   | PRI | NULL    | auto_increment |
+| first_name | varchar(20)  | NO   |     | NULL    |                |
+| last_name  | varchar(20)  | NO   |     | NULL    |                |
+| Address    | varchar(100) | YES  |     | NULL    |                |
+| city       | varchar(30)  | NO   |     | NULL    |                |
+| state      | varchar(30)  | NO   |     | NULL    |                |
+| zip_code   | int          | NO   |     | NULL    |                |
+| phone_no   | int          | NO   |     | NULL    |                |
+| Email      | varchar(320) | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+9 rows in set (0.00 sec)
+
+    ***UC3***
+
+mysql> Insert into AddressBook (first_name, last_name, address, city, state, zip_code, phone_no, Email)
+    -> values('Nikita',' Khapare','Chandur Bazar' , 'Amravati','Maharashtra',444723,901532458,'nikitakhapare53@gmail.com');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Insert into AddressBook (first_name, last_name, address, city, state, zip_code, phone_no, Email)
+    -> values('Pari',' Bhonde','Chandur Bazar' , 'Amravati','Maharashtra',444723,901532155,'paribhonde27@gmail.com');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Insert into AddressBook (first_name, last_name, address, city, state, zip_code, phone_no, Email)
+    -> values('Smita','Jaiswal','Amravati','Amravati','Maharashtra', 444604,869825843,'smitajaiswal@gmail.com');
+Query OK, 1 row affected (0.00 sec)
+mysql> select * from AddressBook
+    -> ;
++----+------------+-----------+---------------+----------+-------------+----------+-----------+---------------------------+
+| id | first_name | last_name | Address       | city     | state       | zip_code | phone_no  | Email                     |
++----+------------+-----------+---------------+----------+-------------+----------+-----------+---------------------------+
+|  1 | Nikita     |  Khapare  | Chandur Bazar | Amravati | Maharashtra |   444723 | 901532458 | nikitakhapare53@gmail.com |
+|  2 | Pari       |  Bhonde   | Chandur Bazar | Amravati | Maharashtra |   444723 | 901532155 | paribhonde27@gmail.com    |
+|  3 | Smita      | Jaiswal   | Amravati      | Amravati | Maharashtra |   444604 | 869825843 | smitajaiswal@gmail.com    |
++----+------------+-----------+---------------+----------+-------------+----------+-----------+---------------------------+
+3 rows in set (0.00 sec)
+
+
+   ***UC4***
+mysql> update AddressBook set   city='Nagpur' where first_name='pari';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update AddressBook set   Address='Nagpur' where first_name='pari';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from AddressBook;
++----+------------+-----------+---------------+----------+-------------+----------+-----------+---------------------------+
+| id | first_name | last_name | Address       | city     | state       | zip_code | phone_no  | Email                     |
++----+------------+-----------+---------------+----------+-------------+----------+-----------+---------------------------+
+|  1 | Nikita     |  Khapare  | Chandur Bazar | Amravati | Maharashtra |   444723 | 901532458 | nikitakhapare53@gmail.com |
+|  2 | Pari       |  Bhonde   | Nagpur        | Nagpur   | Maharashtra |   444723 | 901532155 | paribhonde27@gmail.com    |
+|  3 | Smita      | Jaiswal   | Amravati      | Amravati | Maharashtra |   444604 | 869825843 | smitajaiswal@gmail.com    |
++----+------------+-----------+---------------+----------+-------------+----------+-----------+---------------------------+
+3 rows in set (0.00 sec)
+
+mysql> update AddressBook set Address='Puna' , City='Puna' , zip_code=444902 where first_name='Smita';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from addressBook
+    -> ;
++----+------------+-----------+---------------+----------+-------------+----------+-----------+---------------------------+
+| id | first_name | last_name | Address       | city     | state       | zip_code | phone_no  | Email                     |
++----+------------+-----------+---------------+----------+-------------+----------+-----------+---------------------------+
+|  1 | Nikita     |  Khapare  | Chandur Bazar | Amravati | Maharashtra |   444723 | 901532458 | nikitakhapare53@gmail.com |
+|  2 | Pari       |  Bhonde   | Nagpur        | Nagpur   | Maharashtra |   444723 | 901532155 | paribhonde27@gmail.com    |
+|  3 | Smita      | Jaiswal   | Puna          | Puna     | Maharashtra |   444902 | 869825843 | smitajaiswal@gmail.com    |
++----+------------+-----------+---------------+----------+-------------+----------+-----------+---------------------------+
+3 rows in set (0.00 sec)
+
+    ***UC5***
+mysql> delete from AddressBook where first_name='Smita';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from addressBook;
++----+------------+-----------+---------------+----------+-------------+----------+-----------+---------------------------+
+| id | first_name | last_name | Address       | city     | state       | zip_code | phone_no  | Email                     |
++----+------------+-----------+---------------+----------+-------------+----------+-----------+---------------------------+
+|  1 | Nikita     |  Khapare  | Chandur Bazar | Amravati | Maharashtra |   444723 | 901532458 | nikitakhapare53@gmail.com |
+|  2 | Pari       |  Bhonde   | Nagpur        | Nagpur   | Maharashtra |   444723 | 901532155 | paribhonde27@gmail.com    |
++----+------------+-----------+---------------+----------+-------------+----------+-----------+---------------------------+
+2 rows in set (0.00 sec)
+
+   ***UC6***
+mysql> select * from AddressBook;
++----+------------+-----------+---------------+----------+-------------+----------+-----------+---------------------------+
+| id | first_name | last_name | Address       | city     | state       | zip_code | phone_no  | Email                     |
++----+------------+-----------+---------------+----------+-------------+----------+-----------+---------------------------+
+|  1 | Nikita     |  Khapare  | Chandur Bazar | Amravati | Maharashtra |   444723 | 901532458 | nikitakhapare53@gmail.com |
+|  2 | Pari       |  Bhonde   | Nagpur        | Nagpur   | Maharashtra |   444723 | 901532155 | paribhonde27@gmail.com    |
+|  4 | Pratiksha  |  Sose     | Chandur Bazar | Amravati | Maharashtra |   444723 | 901532155 | pratikshasose@gmail.com   |
++----+------------+-----------+---------------+----------+-------------+----------+-----------+---------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from AddressBook where city='Amravati';
++----+------------+-----------+---------------+----------+-------------+----------+-----------+---------------------------+
+| id | first_name | last_name | Address       | city     | state       | zip_code | phone_no  | Email                     |
++----+------------+-----------+---------------+----------+-------------+----------+-----------+---------------------------+
+|  1 | Nikita     |  Khapare  | Chandur Bazar | Amravati | Maharashtra |   444723 | 901532458 | nikitakhapare53@gmail.com |
+|  4 | Pratiksha  |  Sose     | Chandur Bazar | Amravati | Maharashtra |   444723 | 901532155 | pratikshasose@gmail.com   |
++----+------------+-----------+---------------+----------+-------------+----------+-----------+---------------------------+
+2 rows in set (0.00 sec)
+
+***UC7***
+mysql> select * from AddressBook;
++----+------------+-----------+---------------+----------+-------------+----------+-----------+---------------------------+
+| id | first_name | last_name | Address       | city     | state       | zip_code | phone_no  | Email                     |
++----+------------+-----------+---------------+----------+-------------+----------+-----------+---------------------------+
+|  1 | Nikita     |  Khapare  | Chandur Bazar | Amravati | Maharashtra |   444723 | 901532458 | nikitakhapare53@gmail.com |
+|  2 | Pari       |  Bhonde   | Nagpur        | Nagpur   | Maharashtra |   444723 | 901532155 | paribhonde27@gmail.com    |
+|  4 | Pratiksha  |  Sose     | Chandur Bazar | Amravati | Maharashtra |   444723 | 901532155 | pratikshasose@gmail.com   |
++----+------------+-----------+---------------+----------+-------------+----------+-----------+---------------------------+
+3 rows in set (0.00 sec)
+
+mysql> select city, count(*) from addressBook where city='Amravati';
++----------+----------+
+| city     | count(*) |
++----------+----------+
+| Amravati |        2 |
++----------+----------+
+1 row in set (0.00 sec)
+
+mysql> select state, count(*) from addressBook where state='Maharashtra';
++-------------+----------+
+| state       | count(*) |
++-------------+----------+
+| Maharashtra |        3 |
++-------------+----------+
+1 row in set (0.00 sec)
+
+***UC8***
+
+mysql> select * from Addressbook where city='Amravati' order by first_name;
++----+------------+-----------+---------------+----------+-------------+----------+-----------+---------------------------+
+| id | first_name | last_name | Address       | city     | state       | zip_code | phone_no  | Email                     |
++----+------------+-----------+---------------+----------+-------------+----------+-----------+---------------------------+
+|  1 | Nikita     |  Khapare  | Chandur Bazar | Amravati | Maharashtra |   444723 | 901532458 | nikitakhapare53@gmail.com |
+|  4 | Pratiksha  |  Sose     | Chandur Bazar | Amravati | Maharashtra |   444723 | 901532155 | pratikshasose@gmail.com   |
++----+------------+-----------+---------------+----------+-------------+----------+-----------+---------------------------+
+2 rows in set (0.00 sec)
+
+***UC9***
+mysql> Insert into AddressBook (first_name, last_name, address, city, state, zip_code, phone_no, Email)
+    -> values('Poonam',' Shende','Paratwada' , 'Paratwada','Maharashtra',444723,901532155,'poonamshende@gmail.com');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from addressbook;
++----+------------+-----------+---------------+-----------+-------------+----------+-----------+---------------------------+
+| id | first_name | last_name | Address       | city      | state       | zip_code | phone_no  | Email                     |
++----+------------+-----------+---------------+-----------+-------------+----------+-----------+---------------------------+
+|  1 | Nikita     |  Khapare  | Chandur Bazar | Amravati  | Maharashtra |   444723 | 901532458 | nikitakhapare53@gmail.com |
+|  2 | Pari       |  Bhonde   | Nagpur        | Nagpur    | Maharashtra |   444723 | 901532155 | paribhonde27@gmail.com    |
+|  4 | Pratiksha  |  Sose     | Chandur Bazar | Amravati  | Maharashtra |   444723 | 901532155 | pratikshasose@gmail.com   |
+|  5 | Poonam     |  Shende   | Paratwada     | Paratwada | Maharashtra |   444723 | 901532155 | poonamshende@gmail.com    |
++----+------------+-----------+---------------+-----------+-------------+----------+-----------+---------------------------+
+4 rows in set (0.00 sec)
+
+mysql> alter table Addressbook add type varchar(10) after Email;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from addressbook;
++----+------------+-----------+---------------+-----------+-------------+----------+-----------+---------------------------+------+
+| id | first_name | last_name | Address       | city      | state       | zip_code | phone_no  | Email                     | type |
++----+------------+-----------+---------------+-----------+-------------+----------+-----------+---------------------------+------+
+|  1 | Nikita     |  Khapare  | Chandur Bazar | Amravati  | Maharashtra |   444723 | 901532458 | nikitakhapare53@gmail.com | NULL |
+|  2 | Pari       |  Bhonde   | Nagpur        | Nagpur    | Maharashtra |   444723 | 901532155 | paribhonde27@gmail.com    | NULL |
+|  4 | Pratiksha  |  Sose     | Chandur Bazar | Amravati  | Maharashtra |   444723 | 901532155 | pratikshasose@gmail.com   | NULL |
+|  5 | Poonam     |  Shende   | Paratwada     | Paratwada | Maharashtra |   444723 | 901532155 | poonamshende@gmail.com    | NULL |
++----+------------+-----------+---------------+-----------+-------------+----------+-----------+---------------------------+------+
+4 rows in set (0.00 sec)
+
+mysql> update addressbook set type='Family' where name='nikita';
+ERROR 1054 (42S22): Unknown column 'name' in 'where clause'
+mysql> update addressbook set type='Family' where first_name='nikita';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update addressbook set type='family' where first_name='pari';;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+ERROR:
+No query specified
+
+mysql> update addressbook set type='family' where first_name='pari';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> update addressbook set type='profession' where first_name='Pratiksha';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update addressbook set type='Friend' where first_name='Poonam';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from addressBook;
++----+------------+-----------+---------------+-----------+-------------+----------+-----------+---------------------------+------------+
+| id | first_name | last_name | Address       | city      | state       | zip_code | phone_no  | Email                     | type       |
++----+------------+-----------+---------------+-----------+-------------+----------+-----------+---------------------------+------------+
+|  1 | Nikita     |  Khapare  | Chandur Bazar | Amravati  | Maharashtra |   444723 | 901532458 | nikitakhapare53@gmail.com | Family     |
+|  2 | Pari       |  Bhonde   | Nagpur        | Nagpur    | Maharashtra |   444723 | 901532155 | paribhonde27@gmail.com    | family     |
+|  4 | Pratiksha  |  Sose     | Chandur Bazar | Amravati  | Maharashtra |   444723 | 901532155 | pratikshasose@gmail.com   | profession |
+|  5 | Poonam     |  Shende   | Paratwada     | Paratwada | Maharashtra |   444723 | 901532155 | poonamshende@gmail.com    | Friend     |
++----+------------+-----------+---------------+-----------+-------------+----------+-----------+---------------------------+------------+
+4 rows in set (0.00 sec)
+
+   ***UC10***
+mysql> select type , count(*) from addressbook where type='family';
++--------+----------+
+| type   | count(*) |
++--------+----------+
+| Family |        2 |
++--------+----------+
+1 row in set (0.00 sec)
+
+****UC11****
+
+mysql> Insert into AddressBook (first_name, last_name, address, city, state, zip_code, phone_no, Email,type)
+    -> values('smita','Chinkar','puna','puna','maharashtra',444904, 225516398, 'smitachinka@gmail.com','friend');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> Insert into AddressBook (first_name, last_name, address, city, state, zip_code, phone_no, Email,type)
+    -> values('Mamta','Khapare','warud','warud','maharashtra',444904, 225516398, 'mamtakhapare@gmail.com','family');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from addressbook;
++----+------------+-----------+---------------+-----------+-------------+----------+-----------+---------------------------+------------+
+| id | first_name | last_name | Address       | city      | state       | zip_code | phone_no  | Email                     | type       |
++----+------------+-----------+---------------+-----------+-------------+----------+-----------+---------------------------+------------+
+|  1 | Nikita     |  Khapare  | Chandur Bazar | Amravati  | Maharashtra |   444723 | 901532458 | nikitakhapare53@gmail.com | Family     |
+|  2 | Pari       |  Bhonde   | Nagpur        | Nagpur    | Maharashtra |   444723 | 901532155 | paribhonde27@gmail.com    | family     |
+|  4 | Pratiksha  |  Sose     | Chandur Bazar | Amravati  | Maharashtra |   444723 | 901532155 | pratikshasose@gmail.com   | profession |
+|  5 | Poonam     |  Shende   | Paratwada     | Paratwada | Maharashtra |   444723 | 901532155 | poonamshende@gmail.com    | Friend     |
+|  6 | smita      | Chinkar   | puna          | puna      | maharashtra |   444904 | 225516398 | smitachinka@gmail.com     | friend     |
+|  7 | Mamta      | Khapare   | warud         | warud     | maharashtra |   444904 | 225516398 | mamtakhapare@gmail.com    | family     |
++----+------------+-----------+---------------+-----------+-------------+----------+-----------+---------------------------+------------+
+6 rows in set (0.00 sec)
